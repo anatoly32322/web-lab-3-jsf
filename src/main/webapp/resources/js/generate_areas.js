@@ -88,14 +88,12 @@ $(document).ready(function () {
     redrawGraph()
 
     graphElem.addEventListener("click", (event) => {
-        const r = document.getElementById('form:r').value;
-        alert(r);
+        const r = document.getElementById('form:r_hidden').value;
         if (r != null) {
             let pos = getMousePosition(event);
             let areaPos = {...pos};
             toAreaCoords(areaPos, r);
-
-            document.getElementById('form:x_input').value = normalize(areaPos.x);
+            document.getElementById('form:x_input').value = Math.round(areaPos.x);
             document.getElementById('form:y').value = normalize(areaPos.y);
 
             let btn = document.getElementById('form:submitButton');
@@ -106,7 +104,7 @@ $(document).ready(function () {
 
 
 function redrawGraph() {
-    let rVal = document.getElementById('form:r').value;
+    let rVal = document.getElementById('form:r_hidden').value;
     if (rVal) {
         let _R = (rVal).toString();
         let _R2 = (rVal / 2).toString();
@@ -168,12 +166,12 @@ function redrawPoints() {
     const yTableValues = document.getElementsByClassName("table-y-value");
     const rTableValues = document.getElementsByClassName("table-r-value");
     const hitTableValues = document.getElementsByClassName("table-hit-value");
-    const rHidden = document.getElementById('form:r');
+    const rHidden = document.getElementById('form:r_hidden');
 
     for (let i = 0; i < xTableValues.length; i++) {
-        let x = parseInt(xTableValues[i].textContent),
+        let x = parseFloat(xTableValues[i].textContent),
             y = parseFloat(yTableValues[i].textContent),
-            r = parseInt(rTableValues[i].textContent),
+            r = parseFloat(rTableValues[i].textContent),
             hit = hitTableValues[i].textContent === 'Да';
         if (r === parseFloat(rHidden.value)) {
             addPointer(x, y, r, hit);

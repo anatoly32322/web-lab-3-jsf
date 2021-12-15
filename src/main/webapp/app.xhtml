@@ -22,7 +22,7 @@
                     <tr>
                         <td>X</td>
                         <td class="param-row">
-                            <h:selectOneMenu id="x" value="#{pointBean.x}">
+                            <h:selectOneMenu id="x_input" value="#{pointBean.x}">
                                 <f:selectItem itemValue="-3" itemLabel="-3" />
                                 <f:selectItem itemValue="-2" itemLabel="-2" />
                                 <f:selectItem itemValue="-1" itemLabel="-1" />
@@ -44,17 +44,20 @@
                                 <f:validateRequired/>
                                 <f:validateDoubleRange minimum="-5" maximum="5"/>
                             </p:inputText>
+
                         </td>
                     </tr>
                     <tr>
                         <td>R</td>
                         <td class="param-row">
                             <div class="r-param">
-                                <h:selectOneRadio id="r" styleClass="r-group" value="#{pointBean.r}">
-                                    <c:forEach var="i" begin="1" end="5" step="1">
-                                        <f:selectItem itemValue="#{i}" itemLabel="#{i}"/>
-                                    </c:forEach>
-                                </h:selectOneRadio>
+                                <c:forEach var="i" begin="1" end="5" step="1">
+                                    <p:commandLink styleClass="r-group">
+                                        <h:outputText styleClass="r-text" value="#{i}"/>
+                                    </p:commandLink>
+                                </c:forEach>
+                                <h:inputHidden id="r_hidden" value="#{pointBean.r}" required="true"
+                                               requiredMessage="Выберите R"/>
                             </div>
                         </td>
                     </tr>
