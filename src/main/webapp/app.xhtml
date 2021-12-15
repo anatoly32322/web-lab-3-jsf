@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="base.xhtml">
+    <ui:define name="head">
+        <h:outputStylesheet library="css" name="app.css"/>
+        <title>Web №3 - Main Page</title>
+    </ui:define>
+    <ui:define name="content">
+        <div id="app-content">
+            <svg id="areas" width="300px" height="300px" xmlns="http://www.w3.org/2000/svg" version="1.1"/>
+            <h:form id="form" style="width: 100%">
+                <table cellspacing="8px">
+                    <tbody>
+                    <tr>
+                        <td>X</td>
+                        <td class="param-row">
+                            <h:selectOneMenu id="x" value="#{pointBean.x}">
+                                <f:selectItem itemValue="-3" itemLabel="-3" />
+                                <f:selectItem itemValue="-2" itemLabel="-2" />
+                                <f:selectItem itemValue="-1" itemLabel="-1" />
+                                <f:selectItem itemValue="0" itemLabel="0" />
+                                <f:selectItem itemValue="1" itemLabel="1" />
+                                <f:selectItem itemValue="2" itemLabel="2" />
+                                <f:selectItem itemValue="3" itemLabel="3" />
+                                <f:selectItem itemValue="4" itemLabel="4" />
+                                <f:selectItem itemValue="5" itemLabel="5" />
+                            </h:selectOneMenu>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Y</td>
+                        <td class="param-row">
+                            <p:inputText id="y" value="#{pointBean.y}" style="width: 100%"
+                                         converterMessage="Y не является числом"
+                                         validatorMessage="Y не входит в ОДЗ (-5; 5)">
+                                <f:validateRequired/>
+                                <f:validateDoubleRange minimum="-5" maximum="5"/>
+                            </p:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>R</td>
+                        <td class="param-row">
+                            <div class="r-param">
+                                <h:selectOneRadio id="r" styleClass="r-group" value="#{pointBean.r}">
+                                    <c:forEach var="i" begin="1" end="5" step="1">
+                                        <f:selectItem itemValue="#{i}" itemLabel="#{i}"/>
+                                    </c:forEach>
+                                </h:selectOneRadio>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h:messages style="color:red;margin:8px;"/>
+                <p:commandButton id="submitButton" type="submit" value="Проверить"
+                                 action="#{pointBean.addPointIfCorrect}"
+                                 oncomplete="redrawPoints();"
+                                 update="@form jsf_table"/>
+                <h:outputScript library="js" name="app.js"/>
+            </h:form>
+            <h:panelGroup layout="block" id="jsf_table" style="width: 100%; margin-top: 16px">
+                <div id="outputContainer">
+                    <table id="result-table">
+                        <tr class="table-header">
+                            <th class="coords-col">X</th>
+                            <th class="coords-col">Y</th>
+                            <th class="coords-col">R</th>
+                            <th class="time-col">Время запроса</th>
+                            <th class="hitres-col">Попадание</th>
+                        </tr>
+                        <ui:repeat value="#{pointBean.points}" var="point">
+                            <tr class="#{point.hit? 'hit-yes': 'hit-no'}">
+                                <td class="table-x-value">#{point.x}</td>
+                                <td class="table-y-value">#{point.y}</td>
+                                <td class="table-r-value">#{point.r}</td>
+                                <td>#{point.currentTime}</td>
+                                <td class="table-hit-value">#{(point.hit? "Да" : "Нет")}</td>
+                            </tr>
+                        </ui:repeat>
+                    </table>
+                </div>
+            </h:panelGroup>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" type="text/javascript"></script>
+        <script src="https://d3js.org/d3.v7.min.js" type="text/javascript"></script>
+        <h:outputScript library="js" name="generate_areas.js"/>
+    </ui:define>
+</ui:composition>
+</html>
