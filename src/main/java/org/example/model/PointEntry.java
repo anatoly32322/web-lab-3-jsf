@@ -43,15 +43,15 @@ public class PointEntry implements Serializable {
     }
 
     private boolean isRectangleHit() {
-        return x <= 0 && y <= 0 && x >= -r / 2 && y >= -r;
+        return x >= 0 && y <= 0 && x <= r && y >= -r;
     }
 
     private boolean isCircleHit() {
-        return x >= 0 && y <= 0 && (x * x + y * y <= r * r / 4);
+        return x >= 0 && y >= 0 && (x * x + y * y <= r * r / 4);
     }
 
     private boolean isTriangleHit() {
-        return x >= 0 && y >= 0 && y <= -x + r / 2;
+        return x <= 0 && y <= 0 && y >= -x - r;
     }
 
     public int getX() {

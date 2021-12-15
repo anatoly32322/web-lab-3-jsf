@@ -31,11 +31,11 @@ let arrows = [
 ]
 
 // Прямоугольник
-let rect = {x: W2 - R, y: H2, w: R, h: 2 * R};
+let rect = {x: W2, y: H2, w: 2 * R, h: 2 * R};
 // Треугольник
-let triangle = `${W2},${H2} ${W2},${H2 - R} ${W2 + R},${H2}`;
+let triangle = `${W2},${H2} ${W2},${H2 + 2 * R} ${W2 - 2 * R},${H2}`;
 // Четверть круга
-let circle = `M${W2},${H2} ${W2 + R},${H2} A${R} ${R} 0 0 1 ${W2} ${H2 + R}Z`;
+let circle = `M${W2},${H2} ${W2 + R},${H2} A${R} ${R} 0 0 0 ${W2} ${H2 - R}Z`;
 
 $(document).ready(function () {
     graph = d3.select('svg');
@@ -89,6 +89,7 @@ $(document).ready(function () {
 
     graphElem.addEventListener("click", (event) => {
         const r = document.getElementById('form:r').value;
+        alert(r);
         if (r != null) {
             let pos = getMousePosition(event);
             let areaPos = {...pos};

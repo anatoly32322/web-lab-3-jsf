@@ -1,3 +1,5 @@
+
+
 #index-link {
     font-size: 24px;
     margin-top: 16px;
@@ -89,32 +91,21 @@
     letter-spacing: 1vw;
     max-width: 700px;
     text-align: center;
-    /*background: rgba(255, 253, 160, 1);*/
-    /*background: -webkit-linear-gradient(left,*/
-    /*#0023e9 0%,*/
-    /*#00a717 25%,*/
-    /*#6b2600 50%,*/
-    /*#67008d 100%) repeat;*/
-    /*-webkit-background-clip: text;*/
-    /*-webkit-text-fill-color: transparent;*/
-    /*-webkit-animation-name: masked-animation;*/
-    /*-webkit-animation-duration: 50s;*/
-    /*-webkit-animation-iteration-count: infinite;*/
-    /*-webkit-animation-timing-function: linear;*/
 }
 
-@-webkit-keyframes masked-animation {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: -8000px -3000px;
-    }
-}
+/*@-webkit-keyframes masked-animation {*/
+/*    0% {*/
+/*        background-position: 0 0;*/
+/*    }*/
+/*    100% {*/
+/*        background-position: -8000px -3000px;*/
+/*    }*/
+/*}*/
 
 #index-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #ededed;
 }
